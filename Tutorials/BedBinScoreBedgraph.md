@@ -3,13 +3,25 @@
 **Input Files**
 
 1. Bed file with regions of interest;
-2. BigWig file. If you have bedgraph file, use UCSC tool bedgraghToBigWig to convert it to bigwig, follow the instructions of UCSC;
+2. BigWig file. If you have bedgraph file, use [UCSC tools](http://hgdownload.soe.ucsc.edu/admin/exe/macOSX.x86_64/) bedGraghToBigWig to convert it to bigwig, follow the instructions of UCSC;
 
 **Steps of process:**
 
 1. Use bedbin.py to get bins;
+```python
+python splitBedToBin.py -i original.bed --bin-count 10 -o original_bin10.bed
+
+```
+
 2. (Optional) Add names for each bin if the original bed file only has 3 columns;
-3. Use UCSC tools bigWigAverageOverBed to get different scores for each bin;
+```python
+python addBedName.py original_bin10.bed peak > original_bin10_name.bed
+```
+
+3. Use [UCSC tools](http://hgdownload.soe.ucsc.edu/admin/exe/macOSX.x86_64/) bigWigAverageOverBed to get different scores for each bin;
+```shell
+bigWigAverageOVerBed bigwigfile original_bin10_name.bed original_bin10_name.tab
+```
    
    The output columns are:
    
@@ -25,4 +37,8 @@
    8 | max | maximum value (with -minmax turned on)
    
 4. Merge original bin file (BED format) and the output of bigWigAverageOverBed;
+```python
+python wigAverageOverBedTobedgraph.py -a original_bin10_name.bed -b original_bin10_name.tab --score-type sum -o original_bin10_name.bedgraph
+```
+
 

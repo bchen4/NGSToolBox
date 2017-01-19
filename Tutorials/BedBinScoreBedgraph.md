@@ -38,7 +38,8 @@ bigWigAverageOVerBed bigwigfile original_bin10_name.bed original_bin10_name.tab
    
 4: Merge original bin file (BED format) and the output of bigWigAverageOverBed;
 ```python
-python wigAverageOverBedTobedgraph.py -a original_bin10_name.bed -b original_bin10_name.tab --score-type sum -o original_bin10_name.bedgraph
+python wigAverageOverBedTobedgraph.py -a original_bin10_name.bed -b original_bin10_name.tab 
+         --score-type sum -o original_bin10_name.bedgraph
 ```
 
 
